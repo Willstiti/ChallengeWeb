@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ApiResource]
 class User
 {
     #[ORM\Id]
@@ -24,6 +26,20 @@ class User
 
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Task::class, cascade: ['persist', 'remove'])]
+    private $tasks;
+
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function setTasks(Collection $tasks): static
+    {
+        $this->tasks = $tasks;
+
+        return $this;    }
 
     public function getId(): ?int
     {
