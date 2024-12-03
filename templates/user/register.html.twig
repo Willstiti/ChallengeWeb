@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+
+    {# Affichage du formulaire #}
+        {{ form_start(form) }}  {# Début du formulaire #}
+        
+        {{ form_row(form.email) }}  {# Affichage du champ email #}
+        {{ form_row(form.password) }}  {# Affichage du champ mot de passe #}
+        {{ form_row(form.firstName) }}  {# Affichage du champ prénom #}
+        {{ form_row(form.lastname) }}  {# Affichage du champ nom #}
+        
+        <button type="submit">Register</button>
+
+        {{ form_end(form) }}  {# Fin du formulaire #}
+    
+{% endblock %}
