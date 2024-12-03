@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection as Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource]
@@ -30,12 +31,12 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Task::class, cascade: ['persist', 'remove'])]
     private $tasks;
 
-    public function getTasks(): Collection
+    public function getTasks(): ?Collection
     {
         return $this->tasks;
     }
 
-    public function setTasks(Collection $tasks): static
+    public function setTasks(?Collection $tasks): static
     {
         $this->tasks = $tasks;
 
