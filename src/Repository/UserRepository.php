@@ -5,15 +5,26 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface; 
 
 /**
  * @extends ServiceEntityRepository<User>
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, User::class);
+        $this->entityManager = $entityManager;
+    }
+
+    public function save(User $user): void
+    {
+        // Ici, vous n'avez pas besoin d'une propriété _em, vous utilisez $this->entityManager
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 
     //    /**
